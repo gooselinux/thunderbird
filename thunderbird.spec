@@ -24,8 +24,8 @@
 
 Summary:        Mozilla Thunderbird mail/newsgroup client
 Name:           thunderbird
-Version:        3.1.8
-Release:        4%{?dist}
+Version:        3.1.9
+Release:        3%{?dist}
 URL:            http://www.mozilla.org/projects/thunderbird/
 License:        MPLv1.1 or GPLv2+ or LGPLv2+
 Group:          Applications/Internet
@@ -37,7 +37,7 @@ Group:          Applications/Internet
 Source0:        %{tarball}
 %if %{build_langpacks}
 # Language package archive is build by RH
-Source1:        thunderbird-langpacks-%{version}-20110222.tar.bz2
+Source1:        thunderbird-langpacks-%{version}-20110307.tar.bz2
 %endif
 # Config file for compilation
 Source10:       thunderbird-mozconfig
@@ -66,6 +66,8 @@ Patch2:         thunderbird-shared-error.patch
 Patch4:         xulrunner-1.9.2.1-build.patch
 Patch6:         mozilla-build-s390.patch
 Patch7:         thunderbird-fix-default-client.patch
+Patch8:         mozilla-642395.patch
+Patch9:         mozilla-642395-2.patch
 
 
 %if %{official_branding}
@@ -129,6 +131,8 @@ sed -e 's/__RPM_VERSION_INTERNAL__/%{version_internal}/' %{P:%%PATCH0} \
 %patch4 -p1 -b .protected
 %patch6 -p1 -b .s390fix
 %patch7 -p1 -b .default-client
+%patch8 -p0 -b .642395
+%patch9 -p0 -b .642395
 
 %if %{official_branding}
 # Required by Mozilla Corporation
@@ -385,6 +389,12 @@ fi
 #===============================================================================
 
 %changelog
+* Fri Mar 18 2011 Martin Stransky <stransky@redhat.com> - 3.1.9-3
+- Added fixes for mozbz#642395 - ignore bogus Comodo certificates
+
+* Tue Mar  8 2011 Jan Horak <jhorak@redhat.com> - 3.1.9-2
+- Update to 3.1.9
+
 * Tue Feb 22 2011 Jan Horak <jhorak@redhat.com> - 3.1.8-4
 - Update to build3
 
